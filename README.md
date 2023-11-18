@@ -1,47 +1,55 @@
 # n1401
 Trying to write a modern assembler for the 1401
 
-# syntax
+# assembler
+``n1401 main.S -o main.o``
+## options
 
-## db
-### define bytes
-this will define some data
-```x86asm
-db 540.
-db "Hello World".
+| -   | desc |
+| --- | ---- |
+| -h  | help menu |
+| -v  | version |
+| -o  | specify an output file |
+| -g  | specify a format: (raw, rawtape, simh, simh_old) default raw |
+
+# programming
+## word marks
+you can view memory like
+```c
+struct byte_1401 {
+  uint6_t character; // I believe it is 6 bits? I dont know for sure
+  bool marked; // if there is a mark here
+};
 ```
-puts the number 540 and the string Hello World in the file
+you can set word marks manually by placing ``.`` after the byte you want word marked
 
-## ;  
-### note
-anything after this until newline is ignored
+like ``db "HELLO WORLD".`` ``D`` is marked
 
-```x86asm
-text:
-  mwe ; this isnt valid
-```
+or ``db "HELLO" . " WORLD"`` ``O`` is marked
 
-## .  
-### word mark 
-dont try addresses like ``.text:`` the ``.`` will make a wordmark.
+you can also place ``,`` before the byte you want to mark
 
-this will place a wordmark on the nearest byte before it
+like ``db , "HELLO WORLD"`` ``H`` is marked
 
-can be used with db like this:
-```x86asm
-db "Hello World".
-```
-places a wordmark on the letter "d"
+or ``db "HELLO " , "WORLD"`` ``W`` is marked
 
-## :  
-### address with name
+## addresses
+Addresses are 3 characters long
 
-dont try addresses like ``.text:`` the ``.`` will make a wordmark.
+``000``: 0
 
-```x86asm
-string:
-  db "Hello world".
-```
-will point to "H" in the string
+``050``: 50
 
-## addressing
+``A00``: 100
+
+``B00``: 200
+
+``B05``: 205
+## instructions
+
+![Instructions](image.png)
+![Instruction format](image-1.png)
+
+there is also a not very useful instruction reference [1401 proggraming student materials](http://www.bitsavers.org/pdf/ibm/1401/R29-0044-2_1401_Symbolic_Programming_System_Student_Materials.pdf)
+
+todo: make a instruction reference here lol

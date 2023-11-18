@@ -2,6 +2,8 @@
 
 using namespace std;
 
-string addressfromint(int 0) {
-
+string addressfromint(int addr) {
+  string ret;
+  
+  return ret;
 }
