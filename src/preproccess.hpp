@@ -7,7 +7,9 @@
 using namespace std;
 
 string preproccess(string a) {
+  string ret;
 
+  return ret;
 }
 
 #endif
