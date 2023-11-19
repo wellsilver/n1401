@@ -1,4 +1,6 @@
 #include <iostream>
+#include <stdio.h>
+#include <stdlib.h>
 #include <string>
 #include <vector>
 
@@ -17,10 +19,10 @@ string help = "n1401 Assembler for the IBM 1401\n" \
               "-v  - print the version\n" \
               "-o  - specify an output file\n" \
               "-g  - specify a format for output file\n" \
-              " ^  - raw      write the binary as you would onto a card (default)\n" \
-              " ^  - rawtape  write the binary as you would onto a tape |unimplemented\n" \
-              " ^  - simh     write the binary as you would in simh     |unimplemented\n" \
-              " ^  - simh_old write the binary as you would in old simh |unimplemented\n" ;
+              " ^  raw      write the binary as you would onto a card (default)\n" \
+              " ^  rawtape  write the binary as you would onto a tape |unimplemented\n" \
+              " ^  simh     write the binary as you would in simh     |unimplemented\n" \
+              " ^  simh_old write the binary as you would in old simh |unimplemented\n" ;
 
 string version = ""; // todo
 
@@ -63,7 +65,6 @@ int main(int argc, char **argv) {
       printf("\e[31m[Error] Cannot have multiple input files\n\e[0m");
       return -1;
     }
-    
   }
   if (input.empty()) {
     printf("\e[31m[Error] Cannot have no input files\n\e[0m");
@@ -72,10 +73,16 @@ int main(int argc, char **argv) {
   if (output.empty()) {
     output = string("out.o");
   }
-  // d
-  cout << format << endl;
-  cout << input  << endl;
-  cout << output << endl;
-  // /d
+  
+  FILE *inputfile = fopen(input.c_str(), "r");
+
+  string file;
+
+  for (char c=0;c!=EOF;c=fgetc(inputfile)) {
+    file += c;
+  }
+
+  file = preproccess(file);
+  
   return 0;
 }
