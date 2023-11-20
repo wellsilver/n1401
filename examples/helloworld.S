@@ -1,4 +1,4 @@
-boot none ; program doesnt need to have a bootloader (its smaller than a card)
+card 0 ; we dont need a bootloader, so overwrite the bootloader
 printer equ 299
 va: "f"
 
