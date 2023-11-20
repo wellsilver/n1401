@@ -12,7 +12,7 @@ string preproccess(string a) {
   char stringtype;
   bool instring = false;
   bool incomment = false;
-  int line = 0;
+  int line = 1;
   // remove notes
   for (int loop=0;loop<a.size();loop++) {
     if (a.data()[loop] == '\n') {
@@ -44,9 +44,9 @@ string preproccess(string a) {
       while (a.data()[loop] != '\n' && loop < a.size()) {
         a.erase(loop, 1);
       }
+      line++;
     }
   }
-  cout << a;
 
   return ret;
 }
