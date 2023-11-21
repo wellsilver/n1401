@@ -6,5 +6,5 @@ lca 200+(stringstart-stringend), stringend ; move string to printer buffer
 w ; print
 h ; halt
 
-stringstart: db , "HELLO, WORLD" ; It will generate a warning if there is no bcd code equivalant
+stringstart: db , "HELLO, WORLD!" ; It will generate a warning if there is no bcd code equivalant
 stringend: ; this is at "!"

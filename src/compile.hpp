@@ -11,4 +11,8 @@ string addressfromint(int addr) {
   return ret;
 }
 
+string compiletocode(string f) {
+  
+}
+
 #endif
