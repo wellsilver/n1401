@@ -62,7 +62,7 @@ string preproccess(string a) {
   bool warnuncapitalized = true;
 
   line = 1;
-  // check if strings are valid and transform them into 1401 BCD
+  // check if strings are valid
   for (int loop=0;loop<a.size();loop++) {
     if (a[loop] == '\n') {
       warnuncapitalized = true;
@@ -103,7 +103,6 @@ string preproccess(string a) {
       }
     }
   }
-
   return ret;
 }
 
