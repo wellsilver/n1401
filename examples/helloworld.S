@@ -1,6 +1,5 @@
 card 0 ; we dont need a bootloader, so overwrite the bootloader
 printer equ 299
-va: "f"
 
 cs  printer
 lca 200+13, stringend ; move string to printer buffer
