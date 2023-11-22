@@ -18,7 +18,54 @@ vector<struct instruction> instructionlist() {
   vector<struct instruction> ret;
   struct instruction current;
 
-  
+  current.name = "b"; // Branch (unconditional)
+  current.op = "B";
+  current.hasA = true;
+  current.AisFX = false;
+  current.hasB = false;
+  current.hasD = false;
+  current.name = "b"; // Branch if indicator on
+  current.op = "B";
+  current.hasA = true;
+  current.AisFX = false;
+  current.hasB = false;
+  current.hasD = true;
+  ret.push_back(current);
+  current.name = "b"; // Branch if character equal
+  current.op = "B";
+  current.hasA = true;
+  current.AisFX = false;
+  current.hasB = true;
+  current.hasD = true;
+  ret.push_back(current);
+  current.name = "bwz"; // Branch if wordmark or zone
+  current.op = "V";
+  current.hasA = true;
+  current.AisFX = false;
+  current.hasB = true;
+  current.hasD = true;
+  ret.push_back(current);
+  current.name = "c"; // compare
+  current.op = "C";
+  current.hasA = true;
+  current.AisFX = false;
+  current.hasB = true;
+  current.hasD = false;
+  ret.push_back(current);
+  current.name = "h"; // halt
+  current.op = ".";
+  current.hasA = false;
+  current.AisFX = false;
+  current.hasB = false;
+  current.hasD = false;
+  ret.push_back(current);
+  current.name = "h"; // halt and branch
+  current.op = ".";
+  current.hasA = true;
+  current.AisFX = false;
+  current.hasB = false;
+  current.hasD = false;
+  ret.push_back(current);
 
   return ret;
 }
