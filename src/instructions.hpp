@@ -157,7 +157,120 @@ vector<struct instruction> instructionlist() {
   current.hasB = true;
   current.hasD = false;
   ret.push_back(current);
+  current.name = "zs"; // zero and subtract
+  current.op = "!";
+  current.hasA = true;
+  current.AisFX = false;
+  current.hasB = true;
+  current.hasD = false;
+  ret.push_back(current);
+  current.name = "a"; // add (two fields)
+  current.op = "a";
+  current.hasA = true;
+  current.AisFX = false;
+  current.hasB = true;
+  current.hasD = false;
+  ret.push_back(current);
+  current.name = "a"; // add (one field)
+  current.op = "a";
+  current.hasA = true;
+  current.AisFX = false;
+  current.hasB = false;
+  current.hasD = false;
+  ret.push_back(current);
+  current.name = "s"; // add (two fields)
+  current.op = "s";
+  current.hasA = true;
+  current.AisFX = false;
+  current.hasB = true;
+  current.hasD = false;
+  ret.push_back(current);
+  current.name = "s"; // add (one field)
+  current.op = "s";
+  current.hasA = true;
+  current.AisFX = false;
+  current.hasB = false;
+  current.hasD = false;
+  ret.push_back(current);
+  current.name = "m"; // multiply
+  current.op = "@";
+  current.hasA = true;
+  current.AisFX = false;
+  current.hasB = true;
+  current.hasD = false;
+  ret.push_back(current);
+  current.name = "d"; // divide
+  current.op = "%";
+  current.hasA = true;
+  current.AisFX = false;
+  current.hasB = true;
+  current.hasD = false;
+  ret.push_back(current);
+  current.name = "r"; // read a card
+  current.op = "1";
+  current.hasA = false;
+  current.AisFX = false;
+  current.hasB = false;
+  current.hasD = false;
+  ret.push_back(current);
+  current.name = "p"; // punch a card
+  current.op = "4";
+  current.hasA = false;
+  current.AisFX = false;
+  current.hasB = false;
+  current.hasD = false;
+  ret.push_back(current);
+  current.name = "ss"; // select stacker
+  current.op = "k";
+  current.hasA = false;
+  current.AisFX = false;
+  current.hasB = false;
+  current.hasD = true;
+  ret.push_back(current);
+  current.name = "w"; // write a line
+  current.op = "2";
+  current.hasA = false;
+  current.AisFX = false;
+  current.hasB = false;
+  current.hasD = false;
+  ret.push_back(current);
+  current.name = "cc"; // control carriage
+  current.op = "f";
+  current.hasA = false;
+  current.AisFX = false;
+  current.hasB = false;
+  current.hasD = true;
+  ret.push_back(current);
+  current.name = "wrp"; // write a line, read a card, punch a card
+  current.op = "7";
+  current.hasA = false;
+  current.AisFX = false;
+  current.hasB = false;
+  current.hasD = false;
+  ret.push_back(current);
+  current.name = "wr"; // write a line, read a card
+  current.op = "3";
+  current.hasA = false;
+  current.AisFX = false;
+  current.hasB = false;
+  current.hasD = false;
+  ret.push_back(current);
+  current.name = "wp"; // write a line, punch a card
+  current.op = "6";
+  current.hasA = false;
+  current.AisFX = false;
+  current.hasB = false;
+  current.hasD = false;
+  ret.push_back(current);
+  current.name = "rp"; // read a card, punch a card
+  current.op = "5";
+  current.hasA = false;
+  current.AisFX = false;
+  current.hasB = false;
+  current.hasD = false;
+  ret.push_back(current);
 
+// todo: http://www.bitsavers.org/pdf/ibm/1401/R29-0044-2_1401_Symbolic_Programming_System_Student_Materials.pdf page 43, will not be doing that 
 
   return ret;
 }
