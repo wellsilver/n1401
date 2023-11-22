@@ -47,7 +47,7 @@ Addresses are 3 characters long
 ``B05``: 205
 ## instructions
 
-![Instructions](image.png)
+![Instructions](image-2.png)
 ![Instruction format](image-1.png)
 
 there is also a not very useful instruction reference [1401 proggraming student materials](http://www.bitsavers.org/pdf/ibm/1401/R29-0044-2_1401_Symbolic_Programming_System_Student_Materials.pdf)

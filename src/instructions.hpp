@@ -108,6 +108,56 @@ vector<struct instruction> instructionlist() {
   current.hasB = true;
   current.hasD = false;
   ret.push_back(current);
+  current.name = "cs"; // clear storage
+  current.op = "/";
+  current.hasA = true;
+  current.AisFX = false;
+  current.hasB = false;
+  current.hasD = false;
+  ret.push_back(current);
+  current.name = "cs"; // clear storage and branch
+  current.op = "/";
+  current.hasA = true;
+  current.AisFX = false;
+  current.hasB = true;
+  current.hasD = false;
+  ret.push_back(current);
+  current.name = "mcw"; // clear storage and branch
+  current.op = "M";
+  current.hasA = true;
+  current.AisFX = false;
+  current.hasB = true;
+  current.hasD = false;
+  ret.push_back(current);
+  current.name = "mcs"; // move character and supress zero's
+  current.op = "Z";
+  current.hasA = true;
+  current.AisFX = false;
+  current.hasB = true;
+  current.hasD = false;
+  ret.push_back(current);
+  current.name = "mce"; // move character and edit
+  current.op = "E";
+  current.hasA = true;
+  current.AisFX = false;
+  current.hasB = true;
+  current.hasD = false;
+  ret.push_back(current);
+  current.name = "lca"; // load characters to word mark
+  current.op = "L";
+  current.hasA = true;
+  current.AisFX = false;
+  current.hasB = true;
+  current.hasD = false;
+  ret.push_back(current);
+  current.name = "za"; // zero and add
+  current.op = "L";
+  current.hasA = true;
+  current.AisFX = false;
+  current.hasB = true;
+  current.hasD = false;
+  ret.push_back(current);
+
 
   return ret;
 }
