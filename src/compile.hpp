@@ -13,6 +13,7 @@ string addressfromint(int addr) {
 
 string compiletocode(string f) {
   
+  return f;
 }
 
 #endif

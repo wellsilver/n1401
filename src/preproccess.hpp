@@ -122,7 +122,7 @@ string preproccess(string a) {
   vector<struct instruction> instructions = instructionlist();
 
   // check if instructions are valid
-  for (int loop=0;loop<a.size();loop++) {
+  for (int loop=0;loop<a.size();loop++)
     if (a[loop] == '\n') {
       warnuncapitalized = true;
       warncharacter = true;
