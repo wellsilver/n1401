@@ -66,6 +66,48 @@ vector<struct instruction> instructionlist() {
   current.hasB = false;
   current.hasD = false;
   ret.push_back(current);
+  current.name = "mn"; // move numerical
+  current.op = "D";
+  current.hasA = true;
+  current.AisFX = false;
+  current.hasB = true;
+  current.hasD = false;
+  ret.push_back(current);
+  current.name = "mz"; // move zone
+  current.op = "Y";
+  current.hasA = true;
+  current.AisFX = false;
+  current.hasB = true;
+  current.hasD = false;
+  ret.push_back(current);
+  current.name = "sw"; // set word mark
+  current.op = ",";
+  current.hasA = true;
+  current.AisFX = false;
+  current.hasB = false;
+  current.hasD = false;
+  ret.push_back(current);
+  current.name = "sw"; // set word mark (2)
+  current.op = ",";
+  current.hasA = true;
+  current.AisFX = false;
+  current.hasB = true;
+  current.hasD = false;
+  ret.push_back(current);
+  current.name = "cw"; // clear word mark
+  current.op = "q";
+  current.hasA = true;
+  current.AisFX = false;
+  current.hasB = false;
+  current.hasD = false;
+  ret.push_back(current);
+  current.name = "cw"; // clear word mark (2)
+  current.op = "q";
+  current.hasA = true;
+  current.AisFX = false;
+  current.hasB = true;
+  current.hasD = false;
+  ret.push_back(current);
 
   return ret;
 }
