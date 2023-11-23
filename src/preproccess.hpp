@@ -21,6 +21,7 @@ string tobcd(string a) {
   return ret;
 }
 
+// todo compile all the for loops into one for loop
 string preproccess(string a) {
   string ret;
 
@@ -118,16 +119,60 @@ string preproccess(string a) {
       }
     }
   }
-
-  vector<struct instruction> instructions = instructionlist();
-
-  // check if instructions are valid
-  for (int loop=0;loop<a.size();loop++)
+  string name;
+  line = 0;
+  // format addresses to make them easier to read and check for valid instructions
+  for (int loop=0;loop<a.size();loop++) {
     if (a[loop] == '\n') {
       warnuncapitalized = true;
       warncharacter = true;
       line++;
     }
+    name += a;
+  }
+
+  // add a line between address eg (string:\ndb "v")
+  for (int loop=0;loop<a.size();loop++) {
+    if (a[loop] == '\"') {
+      if (instring && stringtype == '\"') {
+        instring = false;
+      } else {
+        stringtype = '\"';
+        instring = true;
+      }
+    }
+    if (a[loop] == '\'') {
+      if (instring && stringtype == '\'') {
+        instring = false;
+      } else {
+        stringtype = '\'';
+        instring = true;
+      }
+    }
+    if (instring) continue;
+    if (a[loop] == ':') {
+      a.insert(loop+1, 1, '\n');
+      loop++;
+    }
+  }
+
+  bool in_line = false;
+
+  // remove multiple succeeding line separators
+  for (int loop=0;loop<a.size();loop++) {
+    if (a[loop] == '\n') {
+      if (in_line == true) {
+        a.erase(loop, 1);
+        in_line = false;
+      } else in_line = true;
+    } else in_line = false;
+  }
+
+  // remove all spaces except for right after an instruction which is replaced with a `, check if valid instructions
+  for (int loop=0;loop<a.size();loop++) {
+    
+  }
+  
   return ret;
 }
 

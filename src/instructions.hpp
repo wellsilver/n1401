@@ -11,6 +11,7 @@ struct instruction {
   bool AisFX; // %FX
   bool hasB;
   bool hasD;
+  bool pseudo; // if an actual instruction or not
 };
 
 // return a list of all instructions
@@ -18,6 +19,8 @@ vector<struct instruction> instructionlist() {
   vector<struct instruction> ret;
   struct instruction current;
 
+
+  current.op = false;
   current.name = "b"; // Branch (unconditional)
   current.op = "B";
   current.hasA = true;
@@ -269,9 +272,24 @@ vector<struct instruction> instructionlist() {
   current.hasB = false;
   current.hasD = false;
   ret.push_back(current);
+  current.pseudo = true;
+  current.name = "card"; // pseudo
+  current.op = "";
+  current.hasA = false;
+  current.AisFX = false;
+  current.hasB = false;
+  current.hasD = false;
+  ret.push_back(current);
+  current.name = "card"; // read a card, punch a card
+  current.op = "";
+  current.hasA = false;
+  current.AisFX = false;
+  current.hasB = false;
+  current.hasD = false;
+  ret.push_back(current);
 
 // todo: http://www.bitsavers.org/pdf/ibm/1401/R29-0044-2_1401_Symbolic_Programming_System_Student_Materials.pdf page 43, will not be doing that 
-
+// check if pseudo is true while your doing it
   return ret;
 }
 
