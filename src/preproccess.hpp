@@ -31,7 +31,7 @@ string preproccess(string a) {
   bool incomment = false;
   int line = 1;
   // remove notes
-  for (int loop=0;loop<a.size();loop++) {
+  for (int loop=1;loop<a.size()-1;loop++) {
     if (a.data()[loop] == '\n') {
       incomment = false;
       if (instring) {
@@ -80,7 +80,7 @@ string preproccess(string a) {
 
   line = 1;
   // check if strings are valid
-  for (int loop=0;loop<a.size();loop++) {
+  for (int loop=1;loop<a.size()-1;loop++) {
     if (a[loop] == '\n') {
       warnuncapitalized = true;
       warncharacter = true;
@@ -122,7 +122,7 @@ string preproccess(string a) {
   }
 
   // add a line between address eg (string:\ndb "v")
-  for (int loop=0;loop<a.size();loop++) {
+  for (int loop=1;loop<a.size()-1;loop++) {
     if (a[loop] == '\"') {
       if (instring && stringtype == '\"') {
         instring = false;
@@ -147,7 +147,7 @@ string preproccess(string a) {
   }
 
   // remove multiple succeeding line separators
-  for (int loop=0;loop<a.size();loop++) {
+  for (int loop=1;loop<a.size()-1;loop++) {
     if (a[loop] == '\n' && a[loop+1] == '\n') {
       a.erase(loop, 1);
       loop = 0;
@@ -155,7 +155,7 @@ string preproccess(string a) {
   }
 
   // remove multiple succeeding spaces
-  for (int loop=0;loop<a.size();loop++) {
+  for (int loop=1;loop<a.size()-1;loop++) {
     if (a[loop] == '\"') {
       if (instring && stringtype == '\"') {
         instring = false;
@@ -178,7 +178,26 @@ string preproccess(string a) {
     }
   }
 
-  cout << a << endl;
+  // remove ' ' from beggining of line
+  bool aftern = true;
+  for (int loop=1;loop<a.size()-1;loop++) {
+    if (a[loop] == ' ' && aftern)
+      a.erase(loop, 1);
+    aftern = false;
+    if (a[loop] == '\n')
+      aftern = true;
+  }
+
+  aftern = true;
+  for (int loop=a.size()-1;loop>0;loop--) {
+    if (a[loop] == ' ' && aftern)
+      a.erase(loop, 1);
+    aftern = false;
+    if (a[loop] == '\n')
+      aftern = true;
+  }
+
+  cout << a << 'v' << endl;
 
   vector<struct instruction> instructions = instructionlist();
 
