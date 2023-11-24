@@ -14,6 +14,12 @@ struct instruction {
   bool pseudo; // if an actual instruction or not
 };
 
+string lower(string v) {
+  string ret;
+  for (auto c : v) ret += tolower(c);
+  return ret;
+}
+
 // return a list of all instructions
 vector<struct instruction> instructionlist() {
   vector<struct instruction> ret;
@@ -280,7 +286,7 @@ vector<struct instruction> instructionlist() {
   current.hasB = false;
   current.hasD = false;
   ret.push_back(current);
-  current.name = "card"; // read a card, punch a card
+  current.name = "db"; // pseudo
   current.op = "";
   current.hasA = false;
   current.AisFX = false;

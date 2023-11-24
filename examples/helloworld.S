@@ -9,4 +9,4 @@ w ; print
 
 h ; halt
 
-string: db "HELLO, WORLD!" . ; word mark at ! declared by .
+string: db "HELLO, WORLD!" . ; word mark at ! declared by . "string" is the address to "H"

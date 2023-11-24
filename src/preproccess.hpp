@@ -4,6 +4,7 @@
 
 #include "instructions.hpp"
 #include <string>
+#include <iostream>
 
 using namespace std;
 
@@ -119,17 +120,6 @@ string preproccess(string a) {
       }
     }
   }
-  string name;
-  line = 0;
-  // format addresses to make them easier to read and check for valid instructions
-  for (int loop=0;loop<a.size();loop++) {
-    if (a[loop] == '\n') {
-      warnuncapitalized = true;
-      warncharacter = true;
-      line++;
-    }
-    name += a;
-  }
 
   // add a line between address eg (string:\ndb "v")
   for (int loop=0;loop<a.size();loop++) {
@@ -156,23 +146,47 @@ string preproccess(string a) {
     }
   }
 
-  bool in_line = false;
-
   // remove multiple succeeding line separators
   for (int loop=0;loop<a.size();loop++) {
-    if (a[loop] == '\n') {
-      if (in_line == true) {
-        a.erase(loop, 1);
-        in_line = false;
-      } else in_line = true;
-    } else in_line = false;
+    if (a[loop] == '\n' && a[loop+1] == '\n') {
+      a.erase(loop, 1);
+      loop = 0;
+    }
   }
 
-  // remove all spaces except for right after an instruction which is replaced with a `, check if valid instructions
+  // remove multiple succeeding spaces
+  for (int loop=0;loop<a.size();loop++) {
+    if (a[loop] == '\"') {
+      if (instring && stringtype == '\"') {
+        instring = false;
+      } else {
+        stringtype = '\"';
+        instring = true;
+      }
+    }
+    if (a[loop] == '\'') {
+      if (instring && stringtype == '\'') {
+        instring = false;
+      } else {
+        stringtype = '\'';
+        instring = true;
+      }
+    }
+    if (a[loop] == ' ' && a[loop+1] == ' ' && !instring) {
+      a.erase(loop, 1);
+      loop = 0;
+    }
+  }
+
+  cout << a << endl;
+
+  vector<struct instruction> instructions = instructionlist();
+
+  // check for valid instructions and place a comma after the instructions
   for (int loop=0;loop<a.size();loop++) {
     
   }
-  
+
   return ret;
 }
 
