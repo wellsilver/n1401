@@ -242,7 +242,7 @@ string preproccess(string a) {
         if (!(tolower(i) >= 'a' && tolower(i) <= 'z')) isinst = true;
       }
       if (isinst) {
-        printf("\e[31m[Error] Addresses can only be named a-z. line %i\n\e[0m", line);
+        printf("\e[31m[Error] Addresses can only be named a-z not \"%s\"\n\e[0m", instr.data());
         exit(-2);
       }
       isinst = false;
@@ -257,7 +257,7 @@ string preproccess(string a) {
         if (i.name == instr) isinst = true;
 
       if (!isinst) {
-        printf("\e[31m[Error] Expected an instruction at line %i\n\e[0m", line);
+        printf("\e[31m[Error] Expected an instruction, got \"%s\"\n\e[0m", instr.data());
         exit(-2);
       }
       if (a[loop] == ' ') a[loop] = ',';
