@@ -186,7 +186,7 @@ string preproccess(string a) {
     aftern = false;
     if (a[loop] == '\n')
       aftern = true;
-  }
+  } 
 
   aftern = true;
   for (int loop=a.size()-1;loop>0;loop--) {
@@ -197,13 +197,50 @@ string preproccess(string a) {
       aftern = true;
   }
 
-  cout << a << 'v' << endl;
-
   vector<struct instruction> instructions = instructionlist();
+  string instr = "";
+  bool nextn = false;
+  bool isinst = false;
+  line = 1;
 
   // check for valid instructions and place a comma after the instructions
-  for (int loop=0;loop<a.size();loop++) {
-    
+  for (int loop=1;loop<a.size();loop++) {
+    if (nextn && a[loop] == '\n') {
+      nextn = false;
+      continue;
+    } else if (nextn) continue;
+
+    if (a[loop] == ':') { // check if the address is valid
+      for (auto i : instr) {// check if in valid alphanumeric range a-z
+        if (!(tolower(i) >= 'a' && tolower(i) <= 'z')) isinst = true;
+      }
+      if (isinst) {
+        printf("\e[31m[Error] Addresses can only be named a-z. line %i\n\e[0m", line);
+        exit(-2);
+      }
+      isinst = false;
+      instr = "";
+      nextn = true;
+      line++;
+      loop--;
+      continue;
+    }
+    if (a[loop] == ' ' || a[loop] == '\n') {
+      for (auto i : instructions) // set isinst if instr is a instruction
+        if (i.name == instr) isinst = true;
+
+      if (!isinst) {
+        printf("\e[31m[Error] Expected an instruction at line %i\n\e[0m", line);
+        exit(-2);
+      }
+      isinst=false;
+      instr = "";
+      nextn = true;
+      line++;
+      loop--;
+      continue;
+    }
+    instr += a[loop];
   }
 
   return ret;
