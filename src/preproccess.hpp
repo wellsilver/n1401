@@ -270,7 +270,7 @@ string preproccess(string a) {
     instr += a[loop];
   }
 
-  return ret;
+  return a;
 }
 
 #endif
