@@ -26,21 +26,21 @@ string tobcd(string a) {
 string preproccess(string a) {
   string ret;
 
-  char stringtype;
-  bool instring = false;
-  bool incomment = false;
   int line = 1;
-  // remove notes
-  for (int loop=1;loop<a.size()-1;loop++) {
-    if (a.data()[loop] == '\n') {
-      incomment = false;
+  bool instring = false;
+  char stringtype;
+
+  a+='\n';
+  // check for unterminated strings
+  for (auto i : a) {
+    if (i == '\n') {
       if (instring) {
-        printf("\e[31m[Error] Unterminated string at line %i\n\e[0m", line);
+        printf("\e[31m[Error] Unterminated string. line %i \e[0m\n", line);
         exit(-2);
       }
       line++;
     }
-    if (a.data()[loop] == '\"') {
+    if (i == '\"') {
       if (instring && stringtype == '\"') {
         instring = false;
       } else {
@@ -48,7 +48,33 @@ string preproccess(string a) {
         instring = true;
       }
     }
-    if (a.data()[loop] == '\'') {
+    if (i == '\'') {
+      if (instring && stringtype == '\'') {
+        instring = false;
+      } else {
+        stringtype = '\'';
+        instring = true;
+      }
+    }
+  }
+  a.erase(a.length()-1, 1);
+
+  bool incomment = false;
+  // remove notes
+  for (int loop=1;loop<a.size()-1;loop++) {
+    if (a[loop] == '\n') {
+      incomment = false;
+      line++;
+    }
+    if (a[loop] == '\"') {
+      if (instring && stringtype == '\"') {
+        instring = false;
+      } else {
+        stringtype = '\"';
+        instring = true;
+      }
+    }
+    if (a[loop] == '\'') {
       if (instring && stringtype == '\'') {
         instring = false;
       } else {
@@ -57,13 +83,14 @@ string preproccess(string a) {
       }
     }
     if (instring) continue;
-    if (a.data()[loop] == ';') {
-      while (a.data()[loop] != '\n' && loop < a.size()) {
+    if (a[loop] == ';') {
+      while (a[loop] != '\n' && loop < a.size()) {
         a.erase(loop, 1);
       }
       line++;
     }
   }
+
 
   // bcdversion[x] is the bcd version of validcharacters[x]
   string characters = " 1234567890#@:>√"  \
