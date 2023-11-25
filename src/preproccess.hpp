@@ -260,6 +260,7 @@ string preproccess(string a) {
         printf("\e[31m[Error] Expected an instruction at line %i\n\e[0m", line);
         exit(-2);
       }
+      if (a[loop] == ' ') a[loop] = ',';
       isinst=false;
       instr = "";
       nextn = true;
@@ -268,6 +269,30 @@ string preproccess(string a) {
       continue;
     }
     instr += a[loop];
+  }
+
+  instring = false;
+
+  for (int loop=1;loop<a.size();loop++) {
+    if (a[loop] == ' ' && !instring) 
+      a.erase(loop,1);
+
+    if (a[loop] == '\"') {
+      if (instring && stringtype == '\"') {
+        instring = false;
+      } else {
+        stringtype = '\"';
+        instring = true;
+      }
+    }
+    if (a[loop] == '\'') {
+      if (instring && stringtype == '\'') {
+        instring = false;
+      } else {
+        stringtype = '\'';
+        instring = true;
+      }
+    }
   }
 
   return a;
