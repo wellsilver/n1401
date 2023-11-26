@@ -257,7 +257,7 @@ string preproccess(string a) {
         if (i.name == instr) isinst = true;
 
       if (!isinst) {
-        printf("\e[31m[Error] Expected an instruction, got \"%s\"\n\e[0m", instr.data());
+        printf("\e[31m[Error] Expected an mnemonic, got \"%s\"\n\e[0m", instr.data());
         exit(-2);
       }
       if (a[loop] == ' ') a[loop] = ',';
