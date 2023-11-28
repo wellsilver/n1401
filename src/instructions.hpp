@@ -293,7 +293,14 @@ vector<struct instruction> instructionlist() {
   current.hasB = false;
   current.hasD = false;
   ret.push_back(current);
-
+  current.name = "ptr"; // pseudo
+  current.op = "";
+  current.hasA = false;
+  current.AisFX = false;
+  current.hasB = false;
+  current.hasD = false;
+  ret.push_back(current);
+  
 // todo: http://www.bitsavers.org/pdf/ibm/1401/R29-0044-2_1401_Symbolic_Programming_System_Student_Materials.pdf page 43, will not be doing that 
 // check if pseudo is true while your doing it
   return ret;

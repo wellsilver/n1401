@@ -31,6 +31,8 @@ string compiletocode(string f) {
   f+='\n';
   for (auto c : f) {
     if (c == ':') {
+      args = {"ptr", arg};
+      lines.push_back(args);
       arg = "";
       continue;
     }
@@ -51,6 +53,10 @@ string compiletocode(string f) {
   }
 
   vector<struct instruction> instructions = instructionlist();
+
+  for (auto ins : lines) {
+    
+  }
 
   return binary;
 }
