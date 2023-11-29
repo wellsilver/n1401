@@ -21,6 +21,11 @@ string readuntill(char v, string *f) {
   return r;
 }
 
+struct addr {
+  int a;
+  string name;
+};
+
 string compiletocode(string f) {
   string binary;
 
@@ -53,9 +58,20 @@ string compiletocode(string f) {
   }
 
   vector<struct instruction> instructions = instructionlist();
-
+  vector<struct addr> addr;
+  int pointer = 100; // after the bootloader
+  // try to figure out the address of addresses
   for (auto ins : lines) {
-    
+    if (ins[0] == string("card")) { // change offset
+
+    }
+    if (ins[0] == string("ptr")) { // write down
+
+    }
+    if (ins[0] == string("db")) { // will need to step through manually
+      
+
+    }
   }
 
   return binary;
