@@ -63,14 +63,25 @@ string compiletocode(string f) {
   // try to figure out the address of addresses
   for (auto ins : lines) {
     if (ins[0] == string("card")) { // change offset
-
+      int save = pointer;
+      if (ins.size()>1) {
+        if (atoi(ins[1].c_str()) == 0) 
+          pointer = 0;
+        else
+          pointer = (atoi(ins[1].c_str())*80)+100; // math
+      }
+      if (pointer < save) {
+        printf("\e[31m[Warn] Cards are in reverse order, might cause overwriting\n");
+        exit(-2);
+      }
+      continue;
     }
     if (ins[0] == string("ptr")) { // write down
-
+      addr.push_back({pointer, ins[1]});
+      continue;
     }
     if (ins[0] == string("db")) { // will need to step through manually
       
-
     }
   }
 
