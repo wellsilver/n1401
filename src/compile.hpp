@@ -60,6 +60,7 @@ string compiletocode(string f) {
   vector<struct instruction> instructions = instructionlist();
   vector<struct addr> addr;
   int pointer = 100; // after the bootloader
+  bool warnreversecard = true;
   // try to figure out the address of addresses
   for (auto ins : lines) {
     if (ins[0] == string("card")) { // change offset
@@ -70,9 +71,9 @@ string compiletocode(string f) {
         else
           pointer = (atoi(ins[1].c_str())*80)+100; // math
       }
-      if (pointer < save) {
+      if (pointer < save && warnreversecard) {
+        warnreversecard = false;
         printf("\e[31m[Warn] Cards are in reverse order, might cause overwriting\n");
-        exit(-2);
       }
       continue;
     }
@@ -80,7 +81,7 @@ string compiletocode(string f) {
       addr.push_back({pointer, ins[1]});
       continue;
     }
-    if (ins[0] == string("db")) { // will need to step through manually
+    if (ins[0] == string("db")) { // I dont even want to talk about it.
       
     }
   }
