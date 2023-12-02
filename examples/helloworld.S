@@ -11,4 +11,4 @@ w ; print
 
 h begin ; branch to begin
 
-string: db "HELLO, WORLD!"< ; word mark at ! declared by < "String" is the address to "H"
+string: db "HELLO, WORLD!"< ; word mark at ! declared by '<'. "String" is the address to "H"

@@ -82,7 +82,14 @@ string compiletocode(string f) {
       continue;
     }
     if (ins[0] == string("db")) { // I dont even want to talk about it.
-      
+      string d = "";
+      bool past=false;
+      for (auto l : ins) {
+        if (!past) {past=true;continue;}
+        for (auto b : l)
+          if (b != '\"') d += b;
+      }
+      cout << d << endl;
     }
   }
 
