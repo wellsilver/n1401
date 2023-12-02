@@ -61,8 +61,11 @@ string compiletocode(string f) {
   vector<struct addr> addr;
   int pointer = 100; // after the bootloader
   bool warnreversecard = true;
+  vector<string> ins;
   // try to figure out the address of addresses
-  for (auto ins : lines) {
+  for (int loop=0;loop<lines.size();loop++) {
+    ins = lines[loop];
+
     if (ins[0] == string("card")) { // change offset
       int save = pointer;
       if (ins.size()>1) {
@@ -82,12 +85,16 @@ string compiletocode(string f) {
       continue;
     }
     if (ins[0] == string("db")) { // I dont even want to talk about it.
+      string d = "";
       bool past=false;
       for (auto l : ins) {
         if (!past) {past=true;continue;}
-        for (auto b : l)
+        for (auto b : l) {
           if (b != '\"' && b != '<' && b != '>') pointer++;
+          if (b != '\"') d += b;
+        }
       }
+      lines[loop][1] = d;
       continue;
     }
   }
