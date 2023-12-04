@@ -84,7 +84,7 @@ string compiletocode(string f) {
       addr.push_back({pointer, ins[1]});
       continue;
     }
-    if (ins[0] == string("db")) { // I dont even want to talk about it.
+    if (ins[0] == string("db")) { // this will format db's arguements to have the string at x[1] be the data. and increment pointer
       string d = "";
       bool past=false;
       for (auto l : ins) {
