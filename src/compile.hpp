@@ -97,16 +97,10 @@ string compiletocode(string f) {
       lines[loop][1] = d;
       continue;
     }
-    for (auto l : ins) {
-      if (l[1] == 'U') {
-        pointer+=3;
-        continue;
-      }
-      for (auto i : instructions)
-        if (l==i.name) pointer++;
-    }
+    pointer += 1; // instruction
+    pointer += 3*(ins.size()-1); // every arguement
   }
-
+  
   return binary;
 }
 
