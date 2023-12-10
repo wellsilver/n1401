@@ -59,7 +59,7 @@ string compiletocode(string f) {
 
   vector<struct instruction> instructions = instructionlist();
   vector<struct addr> addr;
-  int pointer = 100; // after the bootloader
+  int pointer = 0; // after the bootloader
   bool warnreversecard = true;
   vector<string> ins;
   // try to figure out the address of addresses
@@ -72,7 +72,7 @@ string compiletocode(string f) {
         if (atoi(ins[1].c_str()) == 0) 
           pointer = 0;
         else
-          pointer = (atoi(ins[1].c_str())*80)+100; // math
+          pointer = atoi(ins[1].c_str())*80; // math
       }
       if (pointer < save && warnreversecard) {
         warnreversecard = false;
@@ -88,7 +88,7 @@ string compiletocode(string f) {
       string d = "";
       bool past=false;
       for (auto l : ins) {
-        if (!past) {past=true;continue;}
+        if (!past) {past=true;continue;} // what? are we time travelling?
         for (auto b : l) {
           if (b != '\"' && b != '<' && b != '>') pointer++;
           if (b != '\"') d += b;
@@ -98,7 +98,10 @@ string compiletocode(string f) {
       continue;
     }
     pointer += 1; // instruction
-    pointer += 3*(ins.size()-1); // every arguement
+    for (auto l : ins) { // catch d character, everything else is 3
+      if (l.size() == 1) pointer += 1;
+      else pointer += 3;
+    }
   }
   
   return binary;
