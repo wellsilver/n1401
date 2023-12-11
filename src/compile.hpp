@@ -59,7 +59,7 @@ string compiletocode(string f) {
 
   vector<struct instruction> instructions = instructionlist();
   vector<struct addr> addr;
-  int pointer = 0; // after the bootloader
+  int prgmsize = 0; // after the bootloader
   bool warnreversecard = true;
   vector<string> ins;
   // try to figure out the address of addresses
@@ -67,43 +67,48 @@ string compiletocode(string f) {
     ins = lines[loop];
 
     if (ins[0] == string("card")) { // change offset
-      int save = pointer;
+      int save = prgmsize;
       if (ins.size()>1) {
         if (atoi(ins[1].c_str()) == 0) 
-          pointer = 0;
+          prgmsize = 0;
         else
-          pointer = atoi(ins[1].c_str())*80; // math
+          prgmsize = atoi(ins[1].c_str())*80; // math
       }
-      if (pointer < save && warnreversecard) {
+      if (prgmsize < save && warnreversecard) {
         warnreversecard = false;
         printf("\e[31m[Warn] Cards are in reverse order, might cause overwriting\n");
       }
       continue;
     }
     if (ins[0] == string("ptr")) { // write down
-      addr.push_back({pointer, ins[1]});
+      addr.push_back({prgmsize, ins[1]});
       continue;
     }
-    if (ins[0] == string("db")) { // this will format db's arguements to have the string at x[1] be the data. and increment pointer
+    if (ins[0] == string("db")) { // this will format db's arguements to have the string at x[1] be the data. and increment prgmsize
       string d = "";
       bool past=false;
       for (auto l : ins) {
         if (!past) {past=true;continue;} // what? are we time travelling?
         for (auto b : l) {
-          if (b != '\"' && b != '<' && b != '>') pointer++;
+          if (b != '\"' && b != '<' && b != '>') prgmsize++;
           if (b != '\"') d += b;
         }
       }
       lines[loop][1] = d;
       continue;
     }
-    pointer += 1; // instruction
+    prgmsize += 1; // instruction
     for (auto l : ins) { // catch d character, everything else is 3
-      if (l.size() == 1) pointer += 1;
-      else pointer += 3;
+      if (l.size() == 1) prgmsize += 1; // caught d character
+      else prgmsize += 3; // everything else is 3 character
     }
   }
   
+  // might be able to compile now?
+  for (auto i : ins) {
+
+  }
+
   return binary;
 }
 
