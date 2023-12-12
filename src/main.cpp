@@ -83,6 +83,6 @@ int main(int argc, char **argv) {
   }
 
   file = preproccess(file);
-  file = compiletocode(file);
+  file = compiletotape(file);
   return 0;
 }

@@ -26,7 +26,14 @@ struct addr {
   string name;
 };
 
-string compiletocode(string f) {
+string tapebootloader = ""\
+                        ""\
+                        ""\
+                        ""\
+                        ""\
+                        "";
+
+string compiletotape(string f) {
   string binary;
 
   vector<vector<string>> lines;
@@ -59,7 +66,7 @@ string compiletocode(string f) {
 
   vector<struct instruction> instructions = instructionlist();
   vector<struct addr> addr;
-  int prgmsize = 0; // after the bootloader
+  int prgmsize = 80; // after the bootloader
   bool warnreversecard = true;
   vector<string> ins;
   // try to figure out the address of addresses
@@ -104,9 +111,11 @@ string compiletocode(string f) {
     }
   }
   
+  binary += tapebootloader;
+
   // might be able to compile now?
   for (auto i : ins) {
-
+    binary += i;
   }
 
   return binary;
