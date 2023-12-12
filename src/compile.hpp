@@ -83,7 +83,7 @@ string compiletotape(string f) {
       }
       if (prgmsize < save && warnreversecard) {
         warnreversecard = false;
-        printf("\e[31m[Warn] Cards are in reverse order, might cause overwriting\n");
+        printf("\e[31m[Warn] Cards are in reverse order. Trying to go to card %i but at card %i\n", ins[1], (int) prgmsize/80);
       }
       continue;
     }
