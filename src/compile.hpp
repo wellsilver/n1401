@@ -34,7 +34,7 @@ string tapebootloader = ""\
                         "";
 
 string compiletotape(string f) {
-  string binary;
+  string binary = "";
 
   vector<vector<string>> lines;
   string arg = "";
@@ -83,7 +83,7 @@ string compiletotape(string f) {
       }
       if (prgmsize < save && warnreversecard) {
         warnreversecard = false;
-        printf("\e[31m[Warn] Cards are in reverse order. Trying to go to card %i but at card %i\n", ins[1], (int) prgmsize/80);
+        printf("\e[31m[Warn] Cards are in reverse order. Trying to go to card %i but at card %i\n\e[0m]", atoi(ins[1].data()), (int) prgmsize/80);
       }
       continue;
     }
@@ -112,11 +112,36 @@ string compiletotape(string f) {
   }
   
   binary += tapebootloader;
+  string a;
 
   // might be able to compile now?
-  for (auto i : ins) {
-    binary += i;
+  for (auto i : lines) {
+    a = "";
+    bool past=false;
+    for (auto l : i) {
+      if (!past) {past=true;continue;} // what? are we time travelling?
+      if (l[1] == 'U') { // tape unit. FX
+        l.erase(1);
+        if (l.size() > 1) {
+          // no. this is not supposed to happen
+          // todo error message lmao
+          exit(-3);
+        }
+        a += "%U"+l;
+      }
+    }
+    if (i[0] == string("db")) {
+      for (auto c : i[1]) {
+        if (c == '<') {
+          a+='2'; // word mark character in tape
+        } else {
+          a+=c;
+        }
+      }
+    }
+    cout << a << '\n';
   }
+  cout << binary << endl;
 
   return binary;
 }
