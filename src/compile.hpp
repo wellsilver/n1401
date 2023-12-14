@@ -139,6 +139,9 @@ string compiletotape(string f) {
         }
       }
     }
+    if (i[0] == string("card")) {
+      
+    }
     cout << a << '\n';
   }
   cout << binary << endl;
