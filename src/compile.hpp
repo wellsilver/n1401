@@ -133,7 +133,7 @@ string compiletotape(string f) {
     if (i[0] == string("db")) {
       for (auto c : i[1]) {
         if (c == '<') {
-          a+='2'; // word mark character in tape
+          a+='\x1e'; // chatgpt better not be lying lmao
         } else {
           a+=c;
         }
