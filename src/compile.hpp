@@ -42,7 +42,6 @@ string compiletotape(string f) {
     cout << c << endl;
     c.clear();
   }
-
   return binary;
 }
 
