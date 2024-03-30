@@ -76,6 +76,11 @@ int main(int argc, char **argv) {
   
   FILE *inputfile = fopen(input.c_str(), "r");
 
+  if (inputfile==NULL) {
+    printf(input.c_str(),"\e[31m[Error] Cannot read file %s\n\e[0m");
+    return -1;
+  }
+
   string file;
 
   for (char c=0;c!=EOF;c=fgetc(inputfile)) {
