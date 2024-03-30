@@ -1,5 +1,3 @@
-card 0 ; we dont need a bootloader, so overwrite the bootloader
-; ^ this might cause some error checking to fuck up though, like word marks
 begin:
 
 cs 299 ; clear printer space

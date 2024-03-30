@@ -35,116 +35,13 @@ string tapebootloader = ""\
 
 string compiletotape(string f) {
   string binary = "";
-
-  vector<vector<string>> lines;
-  string arg = "";
-  vector<string> args;
-
-  f+='\n';
-  for (auto c : f) {
-    if (c == ':') {
-      args = {"ptr", arg};
-      lines.push_back(args);
-      arg = "";
-      continue;
-    }
-    if (c == '\n') {
-      args.push_back(arg);
-      if (arg != "")
-        lines.push_back(args);
-      args.clear();
-      arg = "";
-      continue;
-    }
-    if (c == ',') {
-      args.push_back(arg);
-      arg = "";
-      continue;
-    }
-    arg += c;
+  bool instr = false;
+  string c = "";
+  for (auto i : f) {
+    if (i != '\n') {c+=i;continue;};
+    cout << c << endl;
+    c.clear();
   }
-
-  vector<struct instruction> instructions = instructionlist();
-  vector<struct addr> addr;
-  int prgmsize = 80; // after the bootloader
-  bool warnreversecard = true;
-  vector<string> ins;
-  // try to figure out the address of addresses
-  for (int loop=0;loop<lines.size();loop++) {
-    ins = lines[loop];
-
-    if (ins[0] == string("card")) { // change offset
-      int save = prgmsize;
-      if (ins.size()>1) {
-        if (atoi(ins[1].c_str()) == 0) 
-          prgmsize = 0;
-        else
-          prgmsize = atoi(ins[1].c_str())*80; // math
-      }
-      if (prgmsize < save && warnreversecard) {
-        warnreversecard = false;
-        printf("\e[31m[Warn] Cards are in reverse order. Trying to go to card %i but at card %i\n\e[0m]", atoi(ins[1].data()), (int) prgmsize/80);
-      }
-      continue;
-    }
-    if (ins[0] == string("ptr")) { // write down
-      addr.push_back({prgmsize, ins[1]});
-      continue;
-    }
-    if (ins[0] == string("db")) { // this will format db's arguements to have the string at x[1] be the data. and increment prgmsize
-      string d = "";
-      bool past=false;
-      for (auto l : ins) {
-        if (!past) {past=true;continue;} // what? are we time travelling?
-        for (auto b : l) {
-          if (b != '\"' && b != '<' && b != '>') prgmsize++;
-          if (b != '\"') d += b;
-        }
-      }
-      lines[loop][1] = d;
-      continue;
-    }
-    prgmsize += 1; // instruction
-    for (auto l : ins) { // catch d character, everything else is 3
-      if (l.size() == 1) prgmsize += 1; // caught d character
-      else prgmsize += 3; // everything else is 3 character
-    }
-  }
-  
-  binary += tapebootloader;
-  string a;
-
-  // might be able to compile now?
-  for (auto i : lines) {
-    a = "";
-    bool past=false;
-    for (auto l : i) {
-      if (!past) {past=true;continue;} // what? are we time travelling?
-      if (l[1] == 'U') { // tape unit. FX
-        l.erase(1);
-        if (l.size() > 1) {
-          // no. this is not supposed to happen
-          // todo error message lmao
-          exit(-3);
-        }
-        a += "%U"+l;
-      }
-    }
-    if (i[0] == string("db")) {
-      for (auto c : i[1]) {
-        if (c == '<') {
-          a+='\x1e'; // chatgpt better not be lying lmao
-        } else {
-          a+=c;
-        }
-      }
-    }
-    if (i[0] == string("card")) {
-      
-    }
-    cout << a << '\n';
-  }
-  cout << binary << endl;
 
   return binary;
 }

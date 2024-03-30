@@ -19,12 +19,9 @@ string help = "n1401 Assembler for the IBM 1401\n" \
               "-v  - print the version\n" \
               "-o  - specify an output file\n" \
               "-g  - specify a format for output file\n" \
-              " ^  raw      write the binary as you would onto a card (default)\n" \
-              " ^  rawtape  write the binary as you would onto a tape |unimplemented\n" \
-              " ^  simh     write the binary as you would in simh     |unimplemented\n" \
-              " ^  simh_old write the binary as you would in old simh |unimplemented\n" ;
+              " ^  rawtape  write the binary as you would onto a tape - default\n";
 
-string version = ""; // todo
+string version = "0"; // todo
 
 int main(int argc, char **argv) {
   for (int loop=1;loop<argc;loop++) {
