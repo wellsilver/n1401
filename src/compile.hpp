@@ -26,22 +26,12 @@ struct addr {
   string name;
 };
 
-string tapebootloader = ""\
-                        ""\
-                        ""\
-                        ""\
-                        ""\
-                        "";
-
 string compiletotape(string f) {
+  vector<vector<string>> instr; // full instructions and arguements
   string binary = "";
-  bool instr = false;
-  string c = "";
-  for (auto i : f) {
-    if (i != '\n') {c+=i;continue;};
-    cout << c << endl;
-    c.clear();
-  }
+
+  
+
   return binary;
 }
 
