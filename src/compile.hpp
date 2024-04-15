@@ -12,6 +12,10 @@ string addressfromint(int addr) {
   return ret;
 }
 
+string addressfromint(string addr) {
+  return addressfromint(stoi(addr));
+}
+
 string readuntill(char v, string *f) {
   string r = "";
   for (auto c : *f)
@@ -49,11 +53,30 @@ string compiletotape(string f) {
   vector<vector<string>> instr = makeinstr(f);
   string binary = "";
 
+  string name;
+  bool hasA;
+  bool AisFX; // %FX
+  bool hasB;
+  bool hasD;
+
   for (auto x : instr) {
-    for (auto y : x) {
-      std::cout << y << ',';
+    // set the booleans first
+    name = x[0];
+    if (x.size()>1) { 
+      
     }
-    std::cout << '\n';
+    if (x.size()>2) {
+      
+    }
+
+    // find the instruction in the instruction list then write its binary
+    for (auto i : alli) {
+      if (i.name != name)    exit(-2);
+      if (i.hasA != i.hasA)  exit(-2);
+      if (i.hasB != i.hasB)  exit(-2);
+      if (i.hasD != i.hasD)  exit(-2);
+      if (i.AisFX!= i.AisFX) exit(-2);
+    }
   }
 
   return binary;
