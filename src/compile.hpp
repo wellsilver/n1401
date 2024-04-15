@@ -60,16 +60,41 @@ string compiletotape(string f) {
   bool hasD;
 
   for (auto x : instr) {
-    // set the booleans first
+    /// set the booleans first
     name = x[0];
     hasA = false;
     AisFX = false;
     hasB = false;
     hasD = false;
 
-    // find the instruction in the instruction list then write its binary
+    // does it have a? is a fx? is a d?
+    if (x.size()>1) {
+      if (x[1][0] == '%') { // a is fx
+        AisFX = true;
+      } else if (x[1][0] == 'd') {
+        hasD = true;
+      } else {
+        hasA = true;
+      }
+    }
+    // does it have b? is b d?
+    if (x.size()>2) {
+      if (x[2][0] == 'd') {
+        hasD = true;
+      } else {
+        hasB = true;
+      }
+    }
+    // does it have d?
+    if (x.size()>3) {
+      if (x[3][0] == 'd') {
+        hasD = true;
+      }
+    }
+
+    /// find the instruction in the instruction list then write its binary
     for (auto i : alli) if (i.name == name && i.hasA == hasA && i.hasB == hasB && i.hasD == hasD && i.AisFX == AisFX)
-      std::cout << "Correct instruction!" << endl;
+      std::cout << "Correct instruction!" << name << endl;
   }
 
   return binary;
