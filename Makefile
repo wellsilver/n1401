@@ -4,7 +4,7 @@ build:
 	g++ src/main.cpp -g -o main.exe
 
 run:
-	./main.exe
+	./main.exe .\examples\helloworld.S -o helloworld.o
 
 clean:
 	rm main.exe

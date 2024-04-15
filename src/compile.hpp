@@ -27,10 +27,10 @@ struct addr {
 };
 
 string compiletotape(string f) {
-  vector<vector<string>> instr; // full instructions and arguements
+  vector<struct instruction> alli = instructionlist();
   string binary = "";
-
   
+  std::cout << f;
 
   return binary;
 }

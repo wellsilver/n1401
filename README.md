@@ -19,9 +19,9 @@ Trying to write a modern assembler for the 1401
 
 ## instructions
 
+see doc/README.md for more
+
 ![Instructions](image-2.png)
 ![Instruction format](image-1.png)
 
 there is also a not very useful instruction reference [1401 proggraming student materials](http://www.bitsavers.org/pdf/ibm/1401/R29-0044-2_1401_Symbolic_Programming_System_Student_Materials.pdf)
-
-todo: make a instruction reference here lol
