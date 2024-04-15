@@ -5,6 +5,7 @@ build:
 
 run:
 	./main.exe .\examples\helloworld.S -o helloworld.o
+#	./i1401.exe helloworld.o
 
 clean:
 	rm main.exe

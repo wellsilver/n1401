@@ -28,8 +28,20 @@ struct addr {
 
 string compiletotape(string f) {
   vector<struct instruction> alli = instructionlist();
-  string binary = "";
   
+  string binary = "";
+
+  string entire = "";
+  string current= "";
+  bool hasA = false;
+  bool AisFX= false; // %FX
+  bool hasB = false;
+  bool hasD = false;
+
+  while (true) {
+    
+  }
+
   std::cout << f;
 
   return binary;
