@@ -4,7 +4,7 @@ build:
 	g++ src/main.cpp -g -o main.exe
 
 run:
-	./main.exe .\examples\helloworld.S -o helloworld.o
+	gdb --ex r --ex q --args ./main.exe .\examples\helloworld.S -o helloworld.o
 #	./i1401.exe helloworld.o
 
 clean:

@@ -26,23 +26,35 @@ struct addr {
   string name;
 };
 
+// split the string into instructions and their arguements
+vector<vector<string>> makeinstr(string f) {
+  vector<vector<string>> instr;
+  bool instring=false;
+
+  vector<string> check;
+  string current= "";
+
+  for (auto i : f) {
+    if (i == '\"' && instring==false) instring=true;
+    else instring=false;
+    if (i == '\n') {check.insert(check.end(), current);current.clear();instr.insert(instr.end(),check);check.clear();continue;};
+    if (i == ',' && instring == false)  {check.insert(check.end(), current);current.clear();continue;}
+    current+=i;
+  }
+  return instr;
+}
+
 string compiletotape(string f) {
   vector<struct instruction> alli = instructionlist();
-  
+  vector<vector<string>> instr = makeinstr(f);
   string binary = "";
 
-  string entire = "";
-  string current= "";
-  bool hasA = false;
-  bool AisFX= false; // %FX
-  bool hasB = false;
-  bool hasD = false;
-
-  while (true) {
-    
+  for (auto x : instr) {
+    for (auto y : x) {
+      std::cout << y << ',';
+    }
+    std::cout << '\n';
   }
-
-  std::cout << f;
 
   return binary;
 }
