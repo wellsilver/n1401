@@ -94,7 +94,7 @@ string compiletotape(string f) {
 
     /// find the instruction in the instruction list then write its binary
     for (auto i : alli) if (i.name == name && i.hasA == hasA && i.hasB == hasB && i.hasD == hasD && i.AisFX == AisFX)
-      std::cout << "Correct instruction!" << name << endl;
+      std::cout << "Correct instruction! " << name << endl;
   }
 
   return binary;
