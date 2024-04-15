@@ -62,21 +62,14 @@ string compiletotape(string f) {
   for (auto x : instr) {
     // set the booleans first
     name = x[0];
-    if (x.size()>1) { 
-      
-    }
-    if (x.size()>2) {
-      
-    }
+    hasA = false;
+    AisFX = false;
+    hasB = false;
+    hasD = false;
 
     // find the instruction in the instruction list then write its binary
-    for (auto i : alli) {
-      if (i.name != name)    exit(-2);
-      if (i.hasA != i.hasA)  exit(-2);
-      if (i.hasB != i.hasB)  exit(-2);
-      if (i.hasD != i.hasD)  exit(-2);
-      if (i.AisFX!= i.AisFX) exit(-2);
-    }
+    for (auto i : alli) if (i.name == name && i.hasA == hasA && i.hasB == hasB && i.hasD == hasD && i.AisFX == AisFX)
+      std::cout << "Correct instruction!" << endl;
   }
 
   return binary;
