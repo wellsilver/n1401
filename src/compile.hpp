@@ -59,6 +59,8 @@ string compiletotape(string f) {
   bool hasB;
   bool hasD;
 
+  unsigned int offset = 0;
+  
   for (auto x : instr) {
     /// set the booleans first
     name = x[0];
@@ -93,10 +95,12 @@ string compiletotape(string f) {
     }
 
     /// find the instruction in the instruction list then write its binary
-    for (auto i : alli) if (i.name == name && i.hasA == hasA && i.hasB == hasB && i.hasD == hasD && i.AisFX == AisFX) {
-      
+    for (auto i : alli) {
+      if (i.name == name && i.hasA == hasA && i.hasB == hasB && i.hasD == hasD && i.AisFX == AisFX) {
+        // haved to find the character for word mark
+        
+      }
     }
-      
   }
 
   return binary;
