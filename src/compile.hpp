@@ -97,8 +97,8 @@ string compiletotape(string f) {
     /// find the instruction in the instruction list then write its binary
     for (auto i : alli) {
       if (i.name == name && i.hasA == hasA && i.hasB == hasB && i.hasD == hasD && i.AisFX == AisFX) {
-        // haved to find the character for word mark
-        
+        // according to the docs { is the character for word mark
+        binary += "{"; // add mark so the command is executable
       }
     }
   }
