@@ -100,6 +100,8 @@ string compiletotape(string f) {
       if (i.name == name && i.hasA == hasA && i.hasB == hasB && i.hasD == hasD && i.AisFX == AisFX) {
         // according to the docs { is the character for word mark
         binary += "{"; // add mark so the command is executable
+        binary += i.op;
+        // data here
       }
     }
   }
