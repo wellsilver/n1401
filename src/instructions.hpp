@@ -32,10 +32,8 @@ string lower(string v) {
 // return a list of all instructions
 vector<struct instruction> instructionlist() {
   vector<struct instruction> ret;
-  struct instruction current;
+  struct instruction current = {};
 
-
-  current.op = false;
   current.name = "b"; // Branch (unconditional)
   current.op = "B";
   current.hasA = true;
