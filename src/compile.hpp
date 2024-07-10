@@ -38,6 +38,7 @@ vector<vector<string>> makeinstr(string f) {
   vector<string> check;
   string current= "";
 
+  // holy shit this is scary
   for (auto i : f) {
     if (i == '\"' && instring==false) instring=true;
     else instring=false;
@@ -80,7 +81,7 @@ string compiletotape(string f) {
       }
     }
     // does it have b? is b d?
-    if (x.size()>2) {
+    else if (x.size()>2) {
       if (x[2][0] == 'd') {
         hasD = true;
       } else {
@@ -88,7 +89,7 @@ string compiletotape(string f) {
       }
     }
     // does it have d?
-    if (x.size()>3) {
+    else if (x.size()>3) {
       if (x[3][0] == 'd') {
         hasD = true;
       }
