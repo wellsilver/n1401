@@ -9,6 +9,11 @@ using namespace std;
 string addressfromint(int addr) {
   string ret;
   
+  // temp
+  ret = std::to_string(addr);
+  if (ret.size() == 1) ret = "00"+ret;
+  if (ret.size() == 2) ret = "0"+ret;
+
   return ret;
 }
 
@@ -101,11 +106,12 @@ string compiletotape(string f) {
         // according to the docs { is the character for word mark
         binary += "{"; // add mark so the command is executable
         binary += i.op;
+        binary += addressfromint(x[1]);
         // data here
       }
     }
   }
-
+  std::cout << binary;
   return binary;
 }
 
