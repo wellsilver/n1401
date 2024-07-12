@@ -18,7 +18,7 @@ string addressfromint(int addr) {
 }
 
 string addressfromint(string addr) {
-  return addressfromint(stoi(addr));
+  return addressfromint(std::atoi(addr.c_str()));
 }
 
 string readuntill(char v, string *f) {
@@ -106,12 +106,17 @@ string compiletotape(string f) {
         // according to the docs { is the character for word mark
         binary += "{"; // add mark so the command is executable
         binary += i.op;
-        binary += addressfromint(x[1]);
+        if (i.hasA) {
+          binary += addressfromint(x[1]);
+        }
+        if (i.hasB) {
+          binary += addressfromint(x[2]);
+        }
         // data here
       }
     }
   }
-  std::cout << binary;
+  std::cout << binary << std::endl;
   return binary;
 }
 
