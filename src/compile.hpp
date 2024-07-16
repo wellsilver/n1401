@@ -7,12 +7,14 @@
 using namespace std;
 
 string addressfromint(int addr) {
-  string ret;
-  
-  // temp
-  ret = std::to_string(addr);
-  if (ret.size() == 1) ret = "00"+ret;
-  if (ret.size() == 2) ret = "0"+ret;
+  string ret = "000";
+
+  if (addr >= 1000) {
+    // here, every 1000 it increments from 0 on the bcd list from instructions.hpp
+  }
+
+  ret[2] = addr%10; // get the first digit (from the right)
+  ret[1] = (addr%100 - addr%10); // get the second digit (from the right)
 
   return ret;
 }
@@ -99,7 +101,7 @@ string compiletotape(string f) {
         hasD = true;
       }
     }
-
+ 
     /// find the instruction in the instruction list then write its binary
     for (auto i : alli) {
       if (i.name == name && i.hasA == hasA && i.hasB == hasB && i.hasD == hasD && i.AisFX == AisFX) {
