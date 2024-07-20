@@ -108,7 +108,9 @@ string compiletotape(string f) {
         // according to the docs { is the character for word mark
         binary += "{"; // add mark so the command is executable
         binary += i.op;
-        if (i.hasA) {
+        if (i.AisFX) {
+          binary += std::string("%F") + x[1][1];
+        } else if (i.hasA) {
           binary += addressfromint(x[1]);
         }
         if (i.hasB) {
