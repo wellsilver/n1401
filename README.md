@@ -1,8 +1,14 @@
 # n1401
 Trying to write a modern assembler for the 1401
 
+# Compiling
+only make and g++ required.
+
+``make build`` results in a singular main.exe
+
 # assembler
 ``n1401 main.S -o main.o``
+
 ## options
 
 | -   | desc |
@@ -10,7 +16,7 @@ Trying to write a modern assembler for the 1401
 | -h  | help menu |
 | -v  | version |
 | -o  | specify an output file |
-| -g  | specify a format: (simhtape) default simhtape |
+| -g  | specify a format (only rawtape for now lol) |
 
 # programming
 
