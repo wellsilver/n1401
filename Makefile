@@ -1,11 +1,10 @@
 all: build run clean
 
 build:
-	g++ src/main.cpp -g -o main.exe
+	g++ src/main.cpp -g -o i1401.o
 
 run:
-	gdb --ex r --args ./main.exe .\examples\helloworld.S -o helloworld.o
-#	./i1401.exe helloworld.o
+	./i1401.o examples/helloworld.S
 
 clean:
 	rm main.exe
