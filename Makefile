@@ -7,4 +7,4 @@ run:
 	./i1401.o examples/helloworld.S
 
 clean:
-	rm main.exe
+	rm i1401.o
