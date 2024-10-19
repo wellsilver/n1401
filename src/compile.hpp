@@ -9,12 +9,11 @@ using namespace std;
 string addressfromint(int addr) {
   string ret = "000";
 
-  if (addr >= 1000) {
-    // here, every 1000 it increments from 0 on the bcd list from instructions.hpp
-  }
-
   ret[2] = addr%10; // get the first digit (from the right)
   ret[1] = (addr%100 - addr%10); // get the second digit (from the right)
+  if (addr >= 1000) { // get the third digit (from the right)
+    
+  } else ret[0] = addr%1000 - addr%100 - addr%10;
 
   return ret;
 }
@@ -101,6 +100,7 @@ string compiletotape(string f) {
         hasD = true;
       }
     }
+    std::cout << name << std::endl;
  
     /// find the instruction in the instruction list then write its binary
     for (auto i : alli) {
@@ -120,7 +120,6 @@ string compiletotape(string f) {
       }
     }
   }
-  std::cout << binary << std::endl;
   return binary;
 }
 
