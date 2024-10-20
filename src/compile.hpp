@@ -32,7 +32,7 @@ string readuntill(char v, string *f) {
 }
 
 struct addr {
-  int a;
+  long unsigned int a;
   string name;
 };
 
@@ -58,68 +58,19 @@ vector<vector<string>> makeinstr(string f) {
 string compiletotape(string f) {
   vector<struct instruction> alli = instructionlist();
   vector<vector<string>> instr = makeinstr(f);
+  vector<struct addr> alladdr;
   string binary = "";
+  unsigned int marks = 0; // so we can get the size of the binary as binary.length()-marks
 
-  string name;
-  bool hasA;
-  bool AisFX; // %FX
-  bool hasB;
-  bool hasD;
-
-  unsigned int offset = 0;
+  for (auto i : instr) {
+    // if this is a address then handle it
+    if (i[0].back() == ':') {alladdr.push_back((struct addr) {binary.length() - marks, i[0].erase(i[0].length()-1)});continue;};
+    
+    for (auto c : alli) {
+      
+    }
+  };
   
-  for (auto x : instr) {
-    /// set the booleans first
-    name = x[0];
-    hasA = false;
-    AisFX = false;
-    hasB = false;
-    hasD = false;
-
-    // does it have a? is a fx? is a d?
-    if (x.size()>1) {
-      if (x[1][0] == '%') { // a is fx
-        AisFX = true;
-      } else if (x[1][0] == 'd') {
-        hasD = true;
-      } else {
-        hasA = true;
-      }
-    }
-    // does it have b? is b d?
-    else if (x.size()>2) {
-      if (x[2][0] == 'd') {
-        hasD = true;
-      } else {
-        hasB = true;
-      }
-    }
-    // does it have d?
-    else if (x.size()>3) {
-      if (x[3][0] == 'd') {
-        hasD = true;
-      }
-    }
-    std::cout << name << std::endl;
- 
-    /// find the instruction in the instruction list then write its binary
-    for (auto i : alli) {
-      if (i.name == name && i.hasA == hasA && i.hasB == hasB && i.hasD == hasD && i.AisFX == AisFX) {
-        // according to the docs { is the character for word mark
-        binary += "{"; // add mark so the command is executable
-        binary += i.op;
-        if (i.AisFX) {
-          binary += std::string("%F") + x[1][1];
-        } else if (i.hasA) {
-          binary += addressfromint(x[1]);
-        }
-        if (i.hasB) {
-          binary += addressfromint(x[2]);
-        }
-        // data here
-      }
-    }
-  }
   return binary;
 }
 
