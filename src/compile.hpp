@@ -46,6 +46,7 @@ vector<vector<string>> makeinstr(string f) {
 
   // holy shit this is scary
   for (auto i : f) {
+    // there might be a bug here iwth the string checking
     if (i == '\"' && instring==false) instring=true;
     else instring=false;
     if (i == '\n') {check.insert(check.end(), current);current.clear();instr.insert(instr.end(),check);check.clear();continue;};
@@ -66,11 +67,19 @@ string compiletotape(string f) {
     // if this is a address then handle it
     if (i[0].back() == ':') {alladdr.push_back((struct addr) {binary.length() - marks, i[0].erase(i[0].length()-1)});continue;};
     
+    // with '{' represents a word mark
+
     for (auto c : alli) {
+      if (c.name == i[0]) { // is just the one instruction
+        if (i.size() > 1) 
+          if (i.size() > 2); // has B
+          else {binary += '{' + c.op + addressfromint(i[1]); marks++;} // has A
+        else {binary += '{' + c.op; marks++;} // just the one instruction
+      }
       
     }
   };
-  
+  std::cout << binary << std::endl;
   return binary;
 }
 
