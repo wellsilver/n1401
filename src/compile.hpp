@@ -9,12 +9,6 @@ using namespace std;
 string addressfromint(int addr) {
   string ret = "000";
 
-  ret[2] = addr%10; // get the first digit (from the right)
-  ret[1] = (addr%100 - addr%10); // get the second digit (from the right)
-  if (addr >= 1000) { // get the third digit (from the right)
-    
-  } else ret[0] = addr%1000 - addr%100 - addr%10;
-
   return ret;
 }
 
@@ -73,10 +67,9 @@ string compiletotape(string f) {
       if (c.name == i[0]) { // is just the one instruction
         if (i.size() > 1) 
           if (i.size() > 2); // has B
-          else {binary += '{' + c.op + addressfromint(i[1]); marks++;} // has A
+          else if (i[1][0] == 'U' || i[1][0] == 'F' || i[1][0] == 'T') {binary += "{" + c.op + '%' + i[1]; marks++;} // A is special needs
         else {binary += '{' + c.op; marks++;} // just the one instruction
       }
-      
     }
   };
   std::cout << binary << std::endl;
