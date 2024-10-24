@@ -31,69 +31,30 @@ string preproccess(string a) {
   char stringtype;
 
   a+='\n';
-  // check for unterminated strings
-  for (auto i : a) {
-    if (i == '\n') {
-      if (instring) {
-        printf("\e[31m[Error] Unterminated string. line %i \e[0m\n", line);
-        exit(-2);
-      }
-      line++;
-    }
-    if (i == '\"') {
-      if (instring && stringtype == '\"') {
-        instring = false;
-      } else {
-        stringtype = '\"';
-        instring = true;
-      }
-    }
-    if (i == '\'') {
-      if (instring && stringtype == '\'') {
-        instring = false;
-      } else {
-        stringtype = '\'';
-        instring = true;
-      }
-    }
-  }
-  a.erase(a.length()-1, 1);
-
-  bool incomment = false;
   // remove notes
-  for (int loop=1;loop<a.size()-1;loop++) {
-    if (a[loop] == '\n') {
-      incomment = false;
-      line++;
+  for (int loop=0;loop<a.size();loop++) {
+    if (a[loop] == '\n' && instring) {
+      printf("\e[31m[Error] Unterminated string at line %i\n\e[0m", line);
+      exit(2);
     }
-    if (a[loop] == '\"') {
-      if (instring && stringtype == '\"') {
-        instring = false;
-      } else {
-        stringtype = '\"';
-        instring = true;
-      }
+    if (a[loop] == '\"' && instring) {
+      instring = false;
+    } else if (a[loop] == '\"' && !instring) {
+      instring = true;
     }
-    if (a[loop] == '\'') {
-      if (instring && stringtype == '\'') {
-        instring = false;
-      } else {
-        stringtype = '\'';
-        instring = true;
-      }
+    if (a[loop] == '\'' && instring) {
+      instring = false;
+    } else if (a[loop] == '\'' && !instring) {
+      instring = true;
     }
-    if (instring) continue;
-    if (a[loop] == ';') {
-      while (a[loop] != '\n' && loop < a.size()) {
+    if (a[loop] == ';' && !instring) {
+      while (a[loop] != '\n') {
         a.erase(loop, 1);
       }
-      line++;
     }
   }
 
-
   // bcdversion[x] is the bcd version of validcharacters[x]
-
   
   bool warncharacter = true;
   bool warnuncapitalized = true;
@@ -223,6 +184,7 @@ string preproccess(string a) {
   bool isinst = false;
   line = 1;
 
+  if (*a.begin() <= 32) a.erase(a.begin());
   // check for valid instructions and place a comma after the instructions
   for (int loop=1;loop<a.size();loop++) {
     if (nextn && a[loop] == '\n') {
