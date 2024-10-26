@@ -63,14 +63,16 @@ string compiletotape(string f) {
     
     // with '{' represents a word mark
 
+    // get the op code, and dont check if its actually valid because instructions.hpp is wrong
     for (auto c : alli) {
-      if (c.name == i[0]) { // is just the one instruction
-        if (i.size() > 1) 
-          if (i.size() > 2); // has B
-          else if (i[1][0] == 'U' || i[1][0] == 'F' || i[1][0] == 'T') {binary += "{" + c.op + '%' + i[1]; marks++;} // A is special needs
-        else {binary += '{' + c.op; marks++;} // just the one instruction
+      if (c.op == i[0]) {
+        // add instruction to binary
+
+        goto skipn;
       }
     }
+
+    skipn:;
   };
   std::cout << binary << std::endl;
   return binary;
