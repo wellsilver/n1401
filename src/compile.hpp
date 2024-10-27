@@ -65,9 +65,11 @@ string compiletotape(string f) {
 
     // get the op code, and dont check if its actually valid because instructions.hpp is wrong
     for (auto c : alli) {
-      if (c.op == i[0]) {
+      if (c.name == i[0]) {
         // add instruction to binary
-
+        binary += "{" + c.op;
+        marks++;
+        
         goto skipn;
       }
     }
