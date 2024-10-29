@@ -58,7 +58,7 @@ string compiletotape(string f) {
   unsigned int marks = 0; // so we can get the size of the binary as binary.length()-marks
 
   for (auto i : instr) {
-    // if this is a address then handle it
+    // if this is a address then add it to a list
     if (i[0].back() == ':') {alladdr.push_back((struct addr) {binary.length() - marks, i[0].erase(i[0].length()-1)});continue;};
     
     // with '{' represents a word mark
@@ -67,14 +67,23 @@ string compiletotape(string f) {
     for (auto c : alli) {
       if (c.name == i[0]) {
         // add instruction to binary
-        binary += "{" + c.op;
-        marks++;
+        if (!c.pseudo) {
+          binary += "{" + c.op;
+          marks++;
+        } else { /// handle pseudo ops
+          // db, define bytes (write raw data)
+          if (c.name == "db") {
+            // preproccessor is supposed to make strings one
+            binary += i[1];
+          }
+        }
+
         
-        goto skipn;
+        goto finishinstruction; // instruction added to binary, we are done here
       }
     }
 
-    skipn:;
+    finishinstruction:;
   };
   std::cout << binary << std::endl;
   return binary;
