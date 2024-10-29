@@ -10,7 +10,12 @@ w ; print
 
 h begin ; branch to begin after halt
 
-string: db "HELLO, WORLD!"< ; word mark at ! declared by '<'. "String" is the address to "H"
+string: dbe "HELLO, WORLD!" ; word mark at ! "String" is the address to "H"
+
+; (db) define bytes
+; db define bytes (no wordmark placed)
+; dbe define bytes (with wordmark at last byte)
+; dbs define bytes (with wordmark at first byte)
 
 ; notes:
 ; d character is prefixed with d so like: ss da, where the character is da
