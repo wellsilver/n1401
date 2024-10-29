@@ -40,9 +40,7 @@ vector<vector<string>> makeinstr(string f) {
 
   // holy shit this is scary
   for (auto i : f) {
-    // there might be a bug here iwth the string checking
     if (i == '\"' && instring==false) instring=true;
-    else instring=false;
     if (i == '\n') {check.insert(check.end(), current);current.clear();instr.insert(instr.end(),check);check.clear();continue;};
     if (i == ',' && instring == false)  {check.insert(check.end(), current);current.clear();continue;}
     current+=i;
