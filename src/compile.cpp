@@ -6,10 +6,12 @@
 
 using namespace std;
 
-string addressfromint(int addr) {
-  string ret = "000";
+string addressfromint(unsigned long long addr) {
+  unsigned int c0 = addr % 10;
+  unsigned int c1 = ((addr % 100) - c0) / 10;
+  unsigned int c2 = ((addr % 1000) - c1 - c0) / 100;
 
-  return ret;
+  return std::to_string(c2) + std::to_string(c1) + std::to_string(c0);
 }
 
 string addressfromint(string addr) {
@@ -52,6 +54,7 @@ string compiletotape(string f) {
   vector<struct instruction> alli = instructionlist();
   vector<vector<string>> instr = makeinstr(f);
   vector<struct addr> alladdr;
+  vector<struct addr> future;
   string binary = "";
   unsigned int marks = 0; // so we can get the size of the binary as binary.length()-marks
 
@@ -101,7 +104,28 @@ string compiletotape(string f) {
         }
         
         /// compile assembly
-        
+        // handle A
+        if (i.size() > 1) {
+          if (i[1].size() <= 2) printf("Compiler error, make sure every argument for every instruction is > 2 letters please\n");
+          else if (i[1][0] == '0' && i[1][1] == 'x') { // hex
+            i[1].erase(i[1].begin());
+            i[1].erase(i[1].begin());
+            binary += addressfromint(std::stoul(i[1], nullptr, 16));
+          } else { // assuming its decimal
+            binary += addressfromint(std::atoi(i[1].c_str()));
+          }
+          // handle B
+          if (i.size() > 2) {
+            if (i[2].size() <= 2) printf("Compiler error, make sure every argument for every instruction is > 2 letters please\n");
+            else if (i[1][0] == '0' && i[1][1] == 'x') { // hex
+              i[2].erase(i[2].begin());
+              i[2].erase(i[2].begin());
+              binary += addressfromint(std::stoul(i[2], nullptr, 16));
+            } else { // assuming its decimal
+              binary += addressfromint(std::atoi(i[2].c_str()));
+            }
+          }
+        }
 
         goto finishinstruction; // instruction added to binary, we are done here
       }
