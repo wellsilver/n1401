@@ -1,8 +1,8 @@
 // goal is to find any compiling errors and format to be easier to compile with
-#ifndef pre_h
-#define pre_h
+#ifndef pre_c
+#define pre_c
 
-#include "instructions.hpp"
+#include "instructions.cpp"
 #include <string>
 #include <iostream>
 

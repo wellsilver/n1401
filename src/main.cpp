@@ -6,8 +6,8 @@
 
 using namespace std;
 
-#include "compile.hpp"
-#include "preproccess.hpp"
+#include "compile.cpp"
+#include "preproccess.cpp"
 
 string format = "raw";
 string output;

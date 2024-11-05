@@ -1,8 +1,8 @@
-#ifndef cpi_h
-#define cpi_h
+#ifndef cpi_c
+#define cpi_c
 
 #include <string>
-#include "instructions.hpp"
+#include "instructions.cpp"
 
 using namespace std;
 
@@ -99,8 +99,10 @@ string compiletotape(string f) {
             marks++;
           }
         }
-
         
+        /// compile assembly
+        
+
         goto finishinstruction; // instruction added to binary, we are done here
       }
     }

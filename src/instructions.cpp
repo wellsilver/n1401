@@ -1,5 +1,5 @@
-#ifndef inh
-#define inh
+#ifndef inc
+#define inc
 #include <string>
 #include <vector>
 using namespace std;
