@@ -103,11 +103,10 @@ string compiletotape(string f) {
           }
         }
         
-        /// compile assembly
+        /// compile specific instruction
         // handle A
         if (i.size() > 1) {
-          if (i[1].size() <= 2) printf("Compiler error, make sure every argument for every instruction is > 2 letters please\n");
-          else if (i[1][0] == '0' && i[1][1] == 'x') { // hex
+          if (i[1][0] == '0' && i[1][1] == 'x') { // hex
             i[1].erase(i[1].begin());
             i[1].erase(i[1].begin());
             binary += addressfromint(std::stoul(i[1], nullptr, 16));
@@ -116,13 +115,16 @@ string compiletotape(string f) {
           }
           // handle B
           if (i.size() > 2) {
-            if (i[2].size() <= 2) printf("Compiler error, make sure every argument for every instruction is > 2 letters please\n");
-            else if (i[1][0] == '0' && i[1][1] == 'x') { // hex
+            if (i[1][0] == '0' && i[1][1] == 'x') { // hex
               i[2].erase(i[2].begin());
               i[2].erase(i[2].begin());
               binary += addressfromint(std::stoul(i[2], nullptr, 16));
             } else { // assuming its decimal
               binary += addressfromint(std::atoi(i[2].c_str()));
+            }
+            // can only be d left now
+            if (i.size() > 3) {
+              binary += i[3][0];
             }
           }
         }
