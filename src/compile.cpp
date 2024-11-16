@@ -54,13 +54,23 @@ string compiletotape(string f) {
   vector<struct instruction> alli = instructionlist();
   vector<vector<string>> instr = makeinstr(f);
   vector<struct addr> alladdr;
-  vector<struct addr> future;
+  vector<std::string> addrstrlist; // dont compile gotohere: as if its a integer
   string binary = "";
   unsigned int marks = 0; // so we can get the size of the binary as binary.length()-marks
 
+  // get all addresses
+  for (auto i : instr)
+    if (i[0].back() == ':') {
+      alladdr.push_back({.name=i[0]});
+      alladdr.back().name.erase(alladdr.back().name.end()-1); // get the : at the end of them off
+    }
+
   for (auto i : instr) {
-    // if this is a address then add it to a list
-    if (i[0].back() == ':') {alladdr.push_back((struct addr) {binary.length() - marks, i[0].erase(i[0].length()-1)});continue;};
+    // if this is a address then add its location to the list
+    if (i[0].back() == ':') {
+      // find where it is on alladdr and place the address there
+      
+    }
     
     // with '{' represents a word mark
 
@@ -80,6 +90,7 @@ string compiletotape(string f) {
             i[1].erase(i[1].begin());
             i[1].erase(i[1].end()-1);
             binary += i[1];
+            continue;
           }
           // dbs, define bytes word mark at start
           if (c.name == "dbs") {
@@ -90,6 +101,7 @@ string compiletotape(string f) {
             i[1].erase(i[1].begin());
             i[1].erase(i[1].end()-1);
             binary += i[1];
+            continue;
           }
           // dbe, define bytes word mark at end
           if (c.name == "dbe") {
@@ -100,32 +112,28 @@ string compiletotape(string f) {
             binary += i[1];
             binary.insert(binary.end()-1, '{');
             marks++;
+            continue;
           }
         }
         
-        /// compile specific instruction
-        // handle A
-        if (i.size() > 1) {
-          if (i[1][0] == '0' && i[1][1] == 'x') { // hex
-            i[1].erase(i[1].begin());
-            i[1].erase(i[1].begin());
-            binary += addressfromint(std::stoul(i[1], nullptr, 16));
-          } else { // assuming its decimal
-            binary += addressfromint(std::atoi(i[1].c_str()));
+        // handle arguments
+        for (unsigned int d = 1;i.size()>d;d++) {
+          // is fx?
+          if (i[d][0] == 'U' || i[d][0] == 'T' || i[d][0] == 'F') {
+            i[d].erase(i[d].begin());
+            binary += i[d];
+            continue;
           }
-          // handle B
-          if (i.size() > 2) {
-            if (i[1][0] == '0' && i[1][1] == 'x') { // hex
-              i[2].erase(i[2].begin());
-              i[2].erase(i[2].begin());
-              binary += addressfromint(std::stoul(i[2], nullptr, 16));
-            } else { // assuming its decimal
-              binary += addressfromint(std::atoi(i[2].c_str()));
-            }
-            // can only be d left now
-            if (i.size() > 3) {
-              binary += i[3][0];
-            }
+          // is d character?
+          if (i[d][0] == 'D') {
+            i[d].erase(i[d].begin());
+          }
+          // none of those, then its a address
+          if (i[d][0] == '0' && i[d][1] == 'x') { // hex
+            i[d].erase(i[d].begin(),i[d].begin()+1);
+            binary += addressfromint(std::stoul(i[d], nullptr, 16));
+          } else { // assuming its decimal
+            binary += addressfromint(std::atoi(i[d].c_str()));
           }
         }
 
