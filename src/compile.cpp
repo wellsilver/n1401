@@ -69,7 +69,11 @@ string compiletotape(string f) {
     // if this is a address then add its location to the list
     if (i[0].back() == ':') {
       // find where it is on alladdr and place the address there
-      
+      std::string n = i[0];
+      n.erase(n.end()-1);
+      for (unsigned int ialladdr=0;ialladdr<alladdr.size();ialladdr++)
+        if (alladdr[ialladdr].name == n)
+          alladdr[ialladdr].a = binary.size()-marks;
     }
     
     // with '{' represents a word mark
@@ -116,7 +120,7 @@ string compiletotape(string f) {
           }
         }
         
-        // handle arguments
+        // handle arguments1
         for (unsigned int d = 1;i.size()>d;d++) {
           // is fx?
           if (i[d][0] == 'U' || i[d][0] == 'T' || i[d][0] == 'F') {
