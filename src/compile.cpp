@@ -28,7 +28,8 @@ string readuntill(char v, string *f) {
 }
 
 struct addr {
-  long unsigned int a;
+  long unsigned int a; // address
+  long unsigned int r; // reference in binary
   string name;
 };
 
@@ -126,11 +127,17 @@ string compiletotape(string f) {
           if (i[d][0] == 'U' || i[d][0] == 'T' || i[d][0] == 'F') {
             i[d].erase(i[d].begin());
             binary += i[d];
-            continue;
+            break;
           }
           // is d character?
           if (i[d][0] == 'D') {
             i[d].erase(i[d].begin());
+            break;
+          }
+          // is address pointer thing?
+          for (auto addr : alladdr) if (addr.name == i[d]) {
+            addr.r = binary.size() - marks;
+            break;
           }
           // none of those, then its a address
           if (i[d][0] == '0' && i[d][1] == 'x') { // hex
@@ -147,6 +154,10 @@ string compiletotape(string f) {
 
     finishinstruction:;
   };
+
+  // haved to go through the list of addresses and add them
+  
+
   std::cout << binary << std::endl;
   return binary;
 }
