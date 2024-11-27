@@ -86,7 +86,6 @@ string compiletotape(string f) {
         if (!c.pseudo) {
           binary += "{" + c.op;
           marks++;
-
         } else { /// handle pseudo ops
           // db, define bytes (write raw data)
           if (c.name == "db") {
@@ -135,10 +134,11 @@ string compiletotape(string f) {
             break;
           }
           // is address pointer thing?
-          for (auto addr : alladdr) if (addr.name == i[d]) {
-            addr.r = binary.size() - marks;
-            break;
-          }
+          for (unsigned int loop=0;loop<alladdr.size();loop++)
+            if (alladdr[loop].name == i[d]) {
+              alladdr[loop].r = binary.size() - marks;
+              break;
+            }
           // none of those, then its a address
           if (i[d][0] == '0' && i[d][1] == 'x') { // hex
             i[d].erase(i[d].begin(),i[d].begin()+1);
