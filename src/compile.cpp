@@ -136,7 +136,7 @@ string compiletotape(string f) {
           // is address pointer thing?
           for (unsigned int loop=0;loop<alladdr.size();loop++)
             if (alladdr[loop].name == i[d]) {
-              alladdr[loop].r = binary.size() - marks;
+              alladdr[loop].r = binary.size();
               break;
             }
           // none of those, then its a address
@@ -156,7 +156,12 @@ string compiletotape(string f) {
   };
 
   // haved to go through the list of addresses and add them
-  
+  for (auto addr : alladdr) {
+    std::string thing = addressfromint(addr.a);
+    binary[addr.r] = thing[0];
+    binary[addr.r+1] = thing[1];
+    binary[addr.r+2] = thing[2];
+  }
 
   std::cout << binary << std::endl;
   return binary;
