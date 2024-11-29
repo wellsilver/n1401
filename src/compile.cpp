@@ -114,7 +114,7 @@ string compiletotape(string f) {
             i[1].erase(i[1].begin());
             i[1].erase(i[1].end()-1);
             binary += i[1];
-            binary.insert(binary.end()-1, '{');
+            binary.insert(binary.end()-1, '~');
             marks++;
             continue;
           }
