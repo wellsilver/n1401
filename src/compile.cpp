@@ -77,14 +77,14 @@ string compiletotape(string f) {
           alladdr[ialladdr].a = binary.size()-marks;
     }
     
-    // with '{' represents a word mark
+    // with '~' represents a word mark
 
     // get the op code, and dont check if its actually valid because instructions.hpp is wrong
     for (auto c : alli) {
       if (c.name == i[0]) {
         // add instruction to binary
         if (!c.pseudo) {
-          binary += "{" + c.op;
+          binary += "~" + c.op;
           marks++;
         } else { /// handle pseudo ops
           // db, define bytes (write raw data)
@@ -100,7 +100,7 @@ string compiletotape(string f) {
           if (c.name == "dbs") {
             // preproccessor is supposed to make strings one
             // trim ""
-            binary += "{";
+            binary += "~";
             marks++;
             i[1].erase(i[1].begin());
             i[1].erase(i[1].end()-1);
