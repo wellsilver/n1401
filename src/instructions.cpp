@@ -299,12 +299,14 @@ vector<struct instruction> instructionlist() {
   current.AisFX = false;
   current.hasB = false;
   current.hasD = false;
+  ret.push_back(current);
   current.name = "dbs"; // pseudo
   current.op = "";
   current.hasA = false;
   current.AisFX = false;
   current.hasB = false;
   current.hasD = false;
+  ret.push_back(current);
   current.name = "dbe"; // pseudo
   current.op = "";
   current.hasA = false;

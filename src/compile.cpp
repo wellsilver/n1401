@@ -79,13 +79,42 @@ string compiletotape(string f) {
     
     // with '~' represents a word mark
 
-    // get the op code, and dont check if its actually valid because instructions.hpp is wrong
+    // get the op code, preproccessor allready checks if its valid
     for (auto c : alli) {
       if (c.name == i[0]) {
         // add instruction to binary
         if (!c.pseudo) {
           binary += "~" + c.op;
           marks++;
+
+          // handle arguments1
+          for (unsigned int d = 1;i.size()>d;d++) {
+            // is fx?
+            if (i[d][0] == 'U' || i[d][0] == 'T' || i[d][0] == 'F') {
+              i[d].erase(i[d].begin());
+              binary += i[d];
+              break;
+            }
+            // is d character?
+            if (i[d][0] == 'D') {
+              i[d].erase(i[d].begin());
+              break;
+            }
+            // is address pointer thing?
+            for (unsigned int loop=0;loop<alladdr.size();loop++)
+              if (alladdr[loop].name == i[d]) {
+                alladdr[loop].r = binary.size();
+                break;
+              }
+            // none of those, then its a address
+            if (i[d][0] == '0' && i[d][1] == 'x') { // hex
+              i[d].erase(i[d].begin(),i[d].begin()+1);
+              binary += addressfromint(std::stoul(i[d], nullptr, 16));
+            } else { // assuming its decimal
+              binary += addressfromint(std::atoi(i[d].c_str()));
+            }
+          }
+
         } else { /// handle pseudo ops
           // db, define bytes (write raw data)
           if (c.name == "db") {
@@ -117,34 +146,6 @@ string compiletotape(string f) {
             binary.insert(binary.end()-1, '~');
             marks++;
             continue;
-          }
-        }
-        
-        // handle arguments1
-        for (unsigned int d = 1;i.size()>d;d++) {
-          // is fx?
-          if (i[d][0] == 'U' || i[d][0] == 'T' || i[d][0] == 'F') {
-            i[d].erase(i[d].begin());
-            binary += i[d];
-            break;
-          }
-          // is d character?
-          if (i[d][0] == 'D') {
-            i[d].erase(i[d].begin());
-            break;
-          }
-          // is address pointer thing?
-          for (unsigned int loop=0;loop<alladdr.size();loop++)
-            if (alladdr[loop].name == i[d]) {
-              alladdr[loop].r = binary.size();
-              break;
-            }
-          // none of those, then its a address
-          if (i[d][0] == '0' && i[d][1] == 'x') { // hex
-            i[d].erase(i[d].begin(),i[d].begin()+1);
-            binary += addressfromint(std::stoul(i[d], nullptr, 16));
-          } else { // assuming its decimal
-            binary += addressfromint(std::atoi(i[d].c_str()));
           }
         }
 

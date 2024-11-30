@@ -1,10 +1,10 @@
 all: build run clean
 
 build:
-	g++ src/main.cpp -g -o n1401.o
+	g++ src/main.cpp -g -o n1401.exe
 
 run:
-	./n1401.o examples/helloworld.S
+	./n1401.exe examples/helloworld.S
 
 clean:
-	rm n1401.o
+	rm n1401.exe

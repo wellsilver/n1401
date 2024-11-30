@@ -1,6 +1,4 @@
 ; no bootloader comes prepackaged
-begin:
-
 cs 299 ; clear printer space
 cs 324 ; clear extended printer space
 
@@ -8,9 +6,11 @@ mcw string, 200 ; move string to printer buffer
 
 w ; print
 
-h begin ; branch to begin after halt
+h ; branch to begin after halt
 
-string: dbe "HELLO, WORLD!" ; word mark at ! "String" is the address to "H"
+; word mark at H, "string" points to ! (because theres nothing after it)
+dbs "HELLO, WORLD!"
+string:
 
 ; (db) define bytes
 ; db define bytes (no wordmark placed)
