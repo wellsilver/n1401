@@ -57,6 +57,7 @@ vector<vector<string>> makeinstr(string f) {
     if (c == '\"') {
       if (instring) instring = false;
       else instring = true;
+      continue;
     }
     current += c;
   }
@@ -135,29 +136,20 @@ string compiletotape(string f) {
           // db, define bytes (write raw data)
           if (c.name == "db") {
             // preproccessor is supposed to make strings one
-            // trim ""
-            i[1].erase(i[1].begin());
-            i[1].erase(i[1].end()-1);
             binary += i[1];
             continue;
           }
           // dbs, define bytes word mark at start
           if (c.name == "dbs") {
             // preproccessor is supposed to make strings one
-            // trim ""
             binary += "~";
             marks++;
-            i[1].erase(i[1].begin());
-            i[1].erase(i[1].end()-1);
             binary += i[1];
             continue;
           }
           // dbe, define bytes word mark at end
           if (c.name == "dbe") {
             // preproccessor is supposed to make strings one
-            // trim ""
-            i[1].erase(i[1].begin());
-            i[1].erase(i[1].end()-1);
             binary += i[1];
             binary.insert(binary.end()-1, '~');
             marks++;
