@@ -8,10 +8,9 @@ w ; print
 
 h ; branch to begin after halt
 
-; word mark at H, "string" points to ! (because theres nothing after it)
-dbs "HELLO, WORLD!"
-string:
-
+; word mark at H, "string" points to !
+dbs "HELLO, WORLD"
+string: db "!"
 ; (db) define bytes
 ; db define bytes (no wordmark placed)
 ; dbe define bytes (with wordmark at last byte)

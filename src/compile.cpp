@@ -35,20 +35,33 @@ struct addr {
 
 // split the string into instructions and their arguements
 vector<vector<string>> makeinstr(string f) {
-  vector<vector<string>> instr;
-  bool instring=false;
+  vector<vector<string>> ret;
 
-  vector<string> check;
-  string current= "";
+  bool instring = false;
+  string current;
+  vector<string> next;
 
-  // holy shit this is scary
-  for (auto i : f) {
-    if (i == '\"' && instring==false) instring=true;
-    if (i == '\n') {check.insert(check.end(), current);current.clear();instr.insert(instr.end(),check);check.clear();continue;};
-    if (i == ',' && instring == false)  {check.insert(check.end(), current);current.clear();continue;}
-    current+=i;
+  for (auto c : f) {
+    if (c == ',' && instring == false) {
+      next.push_back(current);
+      current.clear();
+      continue;
+    }
+    if (c == '\n') {
+      next.push_back(current);
+      current.clear();
+      ret.push_back(next);
+      next.clear();
+      continue;
+    }
+    if (c == '\"') {
+      if (instring) instring = false;
+      else instring = true;
+    }
+    current += c;
   }
-  return instr;
+
+  return ret;
 }
 
 string compiletotape(string f) {
@@ -67,6 +80,9 @@ string compiletotape(string f) {
     }
 
   for (auto i : instr) {
+    cout << to_string(i.size()) << " ";
+    for (auto k : i) cout << k;
+    cout << '\n';
     // if this is a address then add its location to the list
     if (i[0].back() == ':') {
       // find where it is on alladdr and place the address there
@@ -74,7 +90,7 @@ string compiletotape(string f) {
       n.erase(n.end()-1);
       for (unsigned int ialladdr=0;ialladdr<alladdr.size();ialladdr++)
         if (alladdr[ialladdr].name == n)
-          alladdr[ialladdr].a = binary.size()-marks;
+          alladdr[ialladdr].a = binary.size()-marks;\
     }
     
     // with '~' represents a word mark
